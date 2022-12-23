@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 
-const jwt_secret = 'templateliteralisabish';
+const jwt_secret = 'templateliteralisaheadache';
 
 const Auth = (req,res,nex)=>{
     const token = req.header('auth-token');

@@ -9,7 +9,7 @@ const Auth = require('./middleware/auth')
 
 app.use(express.json())
 
-const jwt_secret = 'templateliteralisabish';
+const jwt_secret = 'templateliteralisaheadache';
 
 port=2400;
 connectdb();
