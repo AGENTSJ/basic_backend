@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express();
-const connectdb = require('./db/db')
-const user = require('./db/models/model1')
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
+
+const connectdb = require('./db/db')
+const user = require('./db/models/model1')
 const Auth = require('./middleware/auth')
 
 
@@ -15,12 +17,12 @@ port=2400;
 connectdb();
 
 
-//////routes 
+//////routes /////////////////////
 
 app.get('/',(req,res)=>{
     res.send('im alive');
 });
-app.post('/test',[
+app.post('/createuser',[
     body('password').isLength({min:6}),
     body('name').isLength({min:3})
 ],
@@ -31,27 +33,24 @@ app.post('/test',[
         }
         else{
             try{
-                var collect = user(req.body);
-                await collect.save()/////also can use .create for up scaled applictaions
-                res.send(`saved ${req.body}`);
+                const salt = await bcrypt.genSalt(10);
+                const hashpass = await bcrypt.hash(req.body.password,salt);
+                var collect = await user.create({
+                    name:req.body.name,
+                    password:hashpass
+
+                })
+                res.send(`saved go to the login page`);
                 } catch (err){
                     console.log(`error occured : ${err}`)
                     res.status(400).send('bad request duplicate values');
                 }   
         }
     })
-app.get('/test',async (req,res)=>{
-    try{
-        var collect =await  user.findOne({name:`${req.body.name}`});
-        res.json(collect);  
-    }catch {
-        res.status(400).send('internal server issues');
-    }
-    
-})
 
 
-///////////login 
+
+////////////////////////////////////login////////////////////////////////////////////////
 
 app.get('/login',[
     body('name').isLength({min:3}),
@@ -66,8 +65,9 @@ app.get('/login',[
         else{
             
             const loger = await user.findOne({name:`${req.body.name}`});
-
-            if(req.body.password==loger.password){
+            const vResult =await bcrypt.compare(req.body.password,loger.password);
+            // console.log(vResult);
+            if(vResult==true){
                 const data = {
                     user:{
                         id:loger._id
