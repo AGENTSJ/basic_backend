@@ -16,7 +16,7 @@ app.use('/login',require('./routes/credentials-serv-api/logroute'));
 
 app.use('/auth',require('./routes/credentials-serv-api/authRoute'));
 
-
+app.use('/data',require('./routes/data-api/dataroute'))
 
 
 app.listen(port,()=>{
