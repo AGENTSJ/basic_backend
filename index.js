@@ -8,13 +8,19 @@ port=2400;
 
 connectdb();
 
+app.use('/',require('./routes/static-serv-api/static'));
 
-app.use('/createuser',require('./routes/credentials/createuser'));
+app.use('/createuser',require('./routes/credentials-serv-api/createuser'));
 
-app.use('/login',require('./routes/credentials/logroute'));
+app.use('/login',require('./routes/credentials-serv-api/logroute'));
 
-app.use('/auth',require('./routes/credentials/authRoute'));
+app.use('/auth',require('./routes/credentials-serv-api/authRoute'));
+
+
+
 
 app.listen(port,()=>{
-    console.log(`http://localhost:${port}`);
+    console.log(`\n//////////////////////////Server has opened up in ${port}//////////////////////////
+    for more details click
+    http://localhost:${port}`);
 })

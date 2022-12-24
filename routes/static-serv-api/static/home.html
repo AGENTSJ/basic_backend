@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic-Backend</title>
+</head>
+<style>
+    nav{
+        
+        background-color: rgba(26, 25, 25, 0.795);
+        height: 70px;
+        
+    }
+    nav h1{
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 15px;
+        margin-top: 0%;
+        color: greenyellow;
+        margin-bottom: auto;
+        width: fit-content;
+        
+    }
+    p,nav h1, li ,h2{
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 35px;
+        width: fit-content;
+        
+    }
+    .main,.submain{
+        margin-left: 50px;
+       
+    }
+</style>
+<body>
+    
+    <nav><h1>Welcome to my basic-backend</h1></nav>
+    <div class="main">
+        <h2>Instructions</h2>
+        <p>Endpoints are give bellow use postman or other api testers to use these end points</p>
+        <p>Take care of few steps before using the end points</p>
+        <ol>
+            <li>Initialize mongodb server with 'mongod' command</li>
+            <li>dont forget to provide body part in your request example:<br>
+                {
+                    "name":"Jhon Doe",
+                    "password":"tyg567JkR"
+                }
+            </li>
+            <li>Before using '/login' and '/auth' insert few values into the data base with '/createuser' provide body like above mentioned example</li>
+            <li>'/auth' endpoint takes Authentificationtoken in header 'auth-token':'token aquired from /login'</li>
+            
+        </ol>
+
+    </div>
+    <div class="submain">
+        <h2>Endpoints</h2>
+        <ul>
+            <li>To create user : Request type :Post http://localhost:2400/createuser</li>
+            <li>To login with Authtoken: Request type :Get http://localhost:2400/login</li>
+            <li>To get Authentification token : Request type :Get http://localhost:2400/auth</li>
+            
+        </ul>
+    </div>
+    
+</body>
+</html>
